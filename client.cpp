@@ -7,7 +7,7 @@
 
 int main() {
     Socket *clientSocket = new Socket();
-    InetAddress *servAddr = new InetAddress("127.0.0.1", 8888);
+    InetAddress *servAddr = new InetAddress("127.0.0.1", 18888);
 
     clientSocket->connect(servAddr);
 
