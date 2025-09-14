@@ -1,13 +1,13 @@
 #include <iostream>
 #include <cstring>
 #include <unistd.h>
-#include "InetAddress.h"
-#include "Socket.h"
-#include "util.h"
+#include "src/InetAddress.h"
+#include "src/Socket.h"
+#include "src/util.h"
 
 int main() {
     Socket *clientSocket = new Socket();
-    InetAddress *servAddr = new InetAddress("127.0.0.1", 18888);
+    InetAddress *servAddr = new InetAddress("127.0.0.1", 8888);
 
     clientSocket->connect(servAddr);
 

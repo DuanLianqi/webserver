@@ -2,12 +2,13 @@
 #define CHANNEL_H
 
 #include <sys/epoll.h>
+#include <functional>
 
-class Epoll;
+class EventLoop;
 
 class Channel {
 public:
-    Channel(Epoll *ep, int _fd);
+    Channel(EventLoop *_loop, int _fd);
     ~Channel();
 
     void enableReading();
@@ -19,13 +20,17 @@ public:
     void setInEpoll();
 
     void setRevents(uint32_t events);
+    void setCallBack(std::function<void()>);
+
+    void handleEvent();
 
 private:
-    Epoll *ep;
+    EventLoop *loop;
     int fd;
     uint32_t events;
     uint32_t revents;
     bool inEpoll;
+    std::function<void()> callback;
 };
 
 #endif
