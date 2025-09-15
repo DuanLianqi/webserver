@@ -6,24 +6,18 @@
 #include "Socket.h"
 #include "InetAddress.h"
 #include "Channel.h"
+#include "Acceptor.h"
 
 #define READ_BUFFER    1024
 
-Server::Server(EventLoop *loop) : loop(loop) {
-    Socket *serverSocket = new Socket();
-    InetAddress *serverAddr = new InetAddress("127.0.0.1", 8888);
-    serverSocket->bind(serverAddr);
-    serverSocket->listen();
-    serverSocket->setnonblocking();
-
-    Channel *serverChannel = new Channel(loop, serverSocket->getFd());
-    std::function<void()> callback = std::bind(&Server::newConnection, this, serverSocket);
-    serverChannel->setCallBack(callback);
-    serverChannel->enableReading();
+Server::Server(EventLoop *loop) : loop(loop), acceptor(nullptr) {
+    acceptor = new Acceptor(loop);
+    std::function<void(Socket*)> callback = std::bind(&Server::newConnection, this, std::placeholders::_1);
+    acceptor->setNewConnectionCallback(callback);
 }
 
 Server::~Server() {
-
+    delete acceptor;
 }
 
 void Server::hanleReadEvent(int socketfd) {
