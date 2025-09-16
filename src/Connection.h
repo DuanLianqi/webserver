@@ -2,10 +2,12 @@
 #define CONNECTION_H
 
 #include <functional>
+#include <string>
 
 class EventLoop;
 class Socket;
 class Channel;
+class Buffer;
 
 class Connection {
 public:
@@ -18,6 +20,8 @@ private:
     Socket *socket;
     Channel *channel;
     std::function<void(Socket*)> deleteConnectionCallback;
+    std::string *inBuffer;
+    Buffer *readBuffer;
 };
 
 #endif
