@@ -17,5 +17,4 @@ private:
     bool quit;
 };
 
-
 #endif

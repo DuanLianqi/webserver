@@ -30,7 +30,6 @@ void Connection::echo(int sockfd) {
         ssize_t readBytes = read(sockfd, buf, sizeof(buf));
         if(readBytes > 0) {
             readBuffer->append(buf, readBytes);
-            //write(sockfd, buf, sizeof(buf));
         } else if(readBytes == -1 && errno == EINTR) {     // 客户端正常中断, 继续读取
             std::cout << "continue reading " << std::endl;
             continue;

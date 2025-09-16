@@ -19,7 +19,6 @@ void Server::newConnection(Socket *serverSocket) {
     std::function<void(Socket*)> callback = std::bind(&Server::deleteConnection, this, std::placeholders::_1);
     connection->setDeleteConnectionCallback(callback);
     connections[serverSocket->getFd()] = connection;
-
 }
 
 void Server::deleteConnection(Socket *serverSocket) {

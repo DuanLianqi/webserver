@@ -4,7 +4,7 @@
 #include "util.h"
 #include "Channel.h"
 
-#define MAX_EVENTS  1000
+#define MAX_EVENTS 1000
 
 Epoll::Epoll() : epfd(-1), events(nullptr) {
     epfd = epoll_create1(0);
@@ -14,7 +14,7 @@ Epoll::Epoll() : epfd(-1), events(nullptr) {
     bzero(events, sizeof(epoll_event) * MAX_EVENTS);
 }
 
-Epoll::~Epoll()  {
+Epoll::~Epoll() {
     if(epfd != -1) {
         close(epfd);
         epfd = -1;

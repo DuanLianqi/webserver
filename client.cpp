@@ -43,6 +43,7 @@ int main() {
                 break;
             }
         }
+
         readBuffer->clear();
     }
 
