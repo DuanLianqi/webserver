@@ -14,7 +14,12 @@ Server::~Server() {
     delete acceptor;
 }
 
-void Server::newConnection(Socket *serverSocket) {
+void Server::handleReadEvent(int sockfd) {
+    
+}
+
+void Server::newConnection(Socket *serverSocket)
+{
     Connection *connection = new Connection(loop, serverSocket);
     std::function<void(Socket*)> callback = std::bind(&Server::deleteConnection, this, std::placeholders::_1);
     connection->setDeleteConnectionCallback(callback);

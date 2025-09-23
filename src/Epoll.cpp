@@ -23,15 +23,15 @@ Epoll::~Epoll() {
     delete [] events;
 }
 
-void Epoll::addFd(int fd, uint32_t op) {
-    struct epoll_event ev;
-    bzero(&ev, sizeof(ev));
-    ev.data.fd = fd;
-    ev.events = op;
+// void Epoll::addFd(int fd, uint32_t op) {
+//     struct epoll_event ev;
+//     bzero(&ev, sizeof(ev));
+//     ev.data.fd = fd;
+//     ev.events = op;
 
-    int ret = epoll_ctl(epfd, EPOLL_CTL_ADD, fd, &ev);
-    errif(ret == -1, "epoll add event error");
-}
+//     int ret = epoll_ctl(epfd, EPOLL_CTL_ADD, fd, &ev);
+//     errif(ret == -1, "epoll add event error");
+// }
 
 void Epoll::updateChannel(Channel *channel) {
     int ret = 0;

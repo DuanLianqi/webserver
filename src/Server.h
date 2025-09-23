@@ -13,6 +13,7 @@ public:
     Server(EventLoop*);
     ~Server();
 
+    void handleReadEvent(int sockfd);
     void newConnection(Socket *serverSocket);
     void deleteConnection(Socket *serverSocket);
 
