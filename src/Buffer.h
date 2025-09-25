@@ -13,6 +13,7 @@ public:
     const char* str();
     void clear();
     void getline();
+    void setBuf(const char* str);
 
 private:
     std::string buf;

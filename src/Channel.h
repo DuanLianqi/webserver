@@ -1,9 +1,10 @@
 #ifndef CHANNEL_H
 #define CHANNEL_H
 
-#include <sys/epoll.h>
+#include <cstdint>
 #include <functional>
 
+class Socket;
 class EventLoop;
 
 class Channel {
@@ -11,26 +12,27 @@ public:
     Channel(EventLoop *_loop, int _fd);
     ~Channel();
 
-    void enableReading();
-
     int getFd();
-    uint32_t getEvents();
-    uint32_t getRevents();
-    bool getInEpoll();
-    void setInEpoll();
-
-    void setRevents(uint32_t events);
-    void setCallBack(std::function<void()>);
-
     void handleEvent();
+    void enableRead();
+    uint32_t getEvents();
+    uint32_t getReady();
+    bool getInEpoll();
+    void setInEpoll(bool _inEpoll = true);
+    void useET();
+    void setReady(uint32_t _ready);
+    void setReadCallBack(std::function<void()>);
+    void setUseThreadPool(bool use = true);
 
 private:
     EventLoop *loop;
     int fd;
     uint32_t events;
-    uint32_t revents;
+    uint32_t ready;
     bool inEpoll;
-    std::function<void()> callback;
+    bool useThreadPool;
+    std::function<void()> readCallback;
+    std::function<void()> writeCallback;
 };
 
 #endif

@@ -13,9 +13,7 @@ public:
     void listen();
     void setnonblocking();
     int accept(InetAddress* addr);
-
     void connect(InetAddress* addr);
-
     int getFd();
 
 private:

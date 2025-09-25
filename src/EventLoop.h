@@ -13,12 +13,11 @@ public:
 
     void loop();
     void updateChannel(Channel *channel);
-
-    void addThreadTask(std::function<void()> task);
+    void addThread(std::function<void()> task);
 
 private:
-    ThreadPool *threadpool;
     Epoll *ep;
+    ThreadPool *threadpool;
     bool quit;
 };
 

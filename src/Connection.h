@@ -11,15 +11,18 @@ class Buffer;
 
 class Connection {
 public:
-    Connection(EventLoop *loop, Socket* socket);
+    Connection(EventLoop *_loop, Socket* _socket);
     ~Connection();
+
     void echo(int sockfd);
-    void setDeleteConnectionCallback(std::function<void(Socket*)> callback);
+    void send(int sockfd);
+    void setDeleteConnectionCallback(std::function<void(int)> callback);
+
 private:
     EventLoop *loop;
     Socket *socket;
     Channel *channel;
-    std::function<void(Socket*)> deleteConnectionCallback;
+    std::function<void(int)> deleteConnectionCallback;
     std::string *inBuffer;
     Buffer *readBuffer;
 };

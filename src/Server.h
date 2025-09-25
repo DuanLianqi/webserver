@@ -10,12 +10,11 @@ class Connection;
 
 class Server {
 public:
-    Server(EventLoop*);
+    Server(EventLoop *_loop);
     ~Server();
 
-    void handleReadEvent(int sockfd);
     void newConnection(Socket *serverSocket);
-    void deleteConnection(Socket *serverSocket);
+    void deleteConnection(int sockfd);
 
 private:
     EventLoop *loop;

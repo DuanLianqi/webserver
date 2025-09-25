@@ -1,5 +1,6 @@
 #include <sys/socket.h>
 #include <unistd.h>
+#include <cstring>
 #include <fcntl.h>
 #include "Socket.h"
 #include "InetAddress.h"
@@ -22,7 +23,8 @@ Socket::~Socket() {
 }
 
 void Socket::bind(InetAddress *addr) {
-    int ret = ::bind(fd, (sockaddr*)&(addr->addr), addr->addrLen);
+    struct sockaddr_in address = addr->getInetAddress();
+    int ret = ::bind(fd, (sockaddr*)&(address), sizeof(address));
     errif(ret == -1, "socket bind error");
 }
 
@@ -36,13 +38,18 @@ void Socket::setnonblocking() {
 }
 
 int Socket::accept(InetAddress *addr) {
-    int clientFd = ::accept(fd, (sockaddr*)&(addr->addr), &addr->addrLen);
+    struct sockaddr_in address;
+    bzero(&address, sizeof(address));
+    socklen_t addrLen = sizeof(address);
+    int clientFd = ::accept(fd, (sockaddr*)&(address), &addrLen);
     errif(clientFd == -1, "socket accept error");
+    addr->setInetAddress(address);
     return clientFd;
 }
 
 void Socket::connect(InetAddress *addr) {
-    int ret = ::connect(fd, (sockaddr*)&(addr->addr), addr->addrLen);
+    struct sockaddr_in address = addr->getInetAddress();
+    int ret = ::connect(fd, (sockaddr*)&(address), sizeof(address));
     errif(ret == -1, "socket connect error");
 }
 

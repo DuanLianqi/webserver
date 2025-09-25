@@ -3,11 +3,9 @@
 #include "Buffer.h"
 
 Buffer::Buffer() {
-
 }
 
 Buffer::~Buffer() {
-
 }
 
 void Buffer::append(const char *str, int size) {
@@ -34,4 +32,9 @@ void Buffer::clear() {
 void Buffer::getline() {
     buf.clear();
     std::getline(std::cin, buf);
+}
+
+void Buffer::setBuf(const char* str) {
+    buf.clear();
+    buf.append(str);
 }

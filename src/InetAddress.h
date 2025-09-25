@@ -5,12 +5,14 @@
 
 class InetAddress {
 public:
-    struct sockaddr_in addr;
-    socklen_t addrLen;
-
     InetAddress();
-    InetAddress(const char* ip, uint16_t port);
-    ~InetAddress() {};
+    InetAddress(const char *_ip, uint16_t _port);
+    ~InetAddress();
+
+    void setInetAddress(sockaddr_in addr);
+    sockaddr_in getInetAddress();
+private:
+    struct sockaddr_in addr;
 };
 
 #endif

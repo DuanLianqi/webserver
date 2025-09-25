@@ -4,7 +4,7 @@
 #include "Epoll.h"
 #include "ThreadPool.h"
 
-EventLoop::EventLoop() : ep(nullptr), quit(false) {
+EventLoop::EventLoop() : ep(nullptr), threadpool(nullptr), quit(false) {
     ep = new Epoll();
     threadpool = new ThreadPool();
 }
@@ -28,6 +28,6 @@ void EventLoop::updateChannel(Channel *channel) {
     ep->updateChannel(channel);
 }
 
-void EventLoop::addThreadTask(std::function<void()> task) {
+void EventLoop::addThread(std::function<void()> task) {
     threadpool->add(task);
 }
